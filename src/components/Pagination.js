@@ -45,7 +45,7 @@ const Pagination = ({ itemPerPage, totalItems, paginate, currentPage }) => {
                     </>
                 }
                 {pageNumbers.map(number => (
-                    <li key={number} className="page-item">
+                    <li key={number} className={"page-item " + (number===currentPage ? 'active' : '')}>
                         <a href={"#"+number} onClick={() => paginate(number)} className="page-link" title={number}>
                             {number}
                             <span class="sr-only">(current)</span>
