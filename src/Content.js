@@ -38,12 +38,12 @@ export default function Content() {
 
     //change page 
     const paginate = (pageNumber) => {setCurrentPage(pageNumber);}
-
+    // console.log(currentPage);
     return (
         <div className="row">
             {/* <FilterBar /> */}
             <ListedCard items={currentItem} loading={loading} />
-            { (items.length - itemPerPage) >= 1 ? <Pagination itemPerPage={itemPerPage} totalItems={items.length} paginate={paginate} /> : null }
+            { (items.length - itemPerPage) >= 1 ? <Pagination itemPerPage={itemPerPage} totalItems={items.length} paginate={paginate} currentPage={currentPage} /> : null }
         </div>
     )
 }
