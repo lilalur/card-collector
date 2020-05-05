@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const ListedCard = ({ items, loading }) => {
     if(loading) {
-        return <h2>loading...</h2>;
+        return <div class="loader"></div>;
     }
 
     return (
@@ -12,7 +12,7 @@ const ListedCard = ({ items, loading }) => {
                 <div className="col-lg-2 col-md-3 col-sm-4 col-6" key={item.name}>
                     <div className="card mb-3" > 
 
-                        {item.img === undefined ? <img className="card-img-top" src="https://dummyimage.com/260x260/f2f2f2/a1a1a1&text=Image&nbsp;not&nbsp;found" alt={"Image of " + item.name + " not found"} /> : <img className="card-img-top" src={item.img} alt={"Image of " + item.name} /> }
+                        {item.img === undefined ? <img className="card-img-top" src="https://dummyimage.com/193x295/f2f2f2/a1a1a1&text=Image&nbsp;not&nbsp;found" alt={"Image of " + item.name + " not found"} /> : <img className="card-img-top" src={item.img} alt={"Image of " + item.name} /> }
 
                         {/* <img className="card-img-top" src={item.img} onerror={() => {this.onerror=null;this.src='https://dummyimage.com/260x260/f2f2f2/a1a1a1&text=Image&nbsp;not&nbsp;found';}} alt={"Image of " + item.name} /> */}
 

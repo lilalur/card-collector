@@ -13,9 +13,7 @@ export default function Content() {
     const [itemPerPage] = useState(10);
 
     useEffect(() => {
-        
         fetchItems();
-        
     }, []);
 
     const fetchItems = async () => {
@@ -26,25 +24,26 @@ export default function Content() {
               "x-rapidapi-host": "omgvamp-hearthstone-v1.p.rapidapi.com",
               "x-rapidapi-key": "4f6f8870c0mshe2cdfbd2d8bb945p1ceacfjsn94ca2e3b42a3"
             }
+        }).catch(err => {
+            console.error(err);
         });
         const items = await data.json();
         setItems(items);
         setLoading(false);
     };
-
     //get current posts
     const indexOfLastItem = currentPage * itemPerPage;
     const indexOfFirstItem = indexOfLastItem - itemPerPage;
     const currentItem = items.slice(indexOfFirstItem, indexOfLastItem);
 
     //change page 
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    const paginate = (pageNumber) => {setCurrentPage(pageNumber);}
 
     return (
         <div className="row">
             {/* <FilterBar /> */}
             <ListedCard items={currentItem} loading={loading} />
-            <Pagination itemPerPage={itemPerPage} totalItems={items.length} paginate={paginate} />
+            { (items.length - itemPerPage) >= 1 ? <Pagination itemPerPage={itemPerPage} totalItems={items.length} paginate={paginate} /> : null }
         </div>
     )
 }
