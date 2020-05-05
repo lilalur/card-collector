@@ -1,15 +1,25 @@
 import React, {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import ListedCard from './components/ListedCard';
+import Pagination from './components/Pagination';
+// import FilterBar from './FilterBar';
 
 export default function Content() {
-
-    useEffect(() => {
-        fetchItems();
-    }, []);
-
     const [items, setItems] = useState([]);
 
+    //for loading data, maybe we dont need
+    const [loading, setLoading] = useState(false);
+    // For pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemPerPage] = useState(10);
+
+    useEffect(() => {
+        
+        fetchItems();
+        
+    }, []);
+
     const fetchItems = async () => {
+        setLoading(true);
         const data = await fetch(`https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/sets/Basic?locale=enGB&collectible=1`, {
             "method": "GET",
             "headers": {
@@ -17,26 +27,24 @@ export default function Content() {
               "x-rapidapi-key": "4f6f8870c0mshe2cdfbd2d8bb945p1ceacfjsn94ca2e3b42a3"
             }
         });
-        
         const items = await data.json();
         setItems(items);
-        console.log(items);
+        setLoading(false);
     };
 
-    
+    //get current posts
+    const indexOfLastItem = currentPage * itemPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemPerPage;
+    const currentItem = items.slice(indexOfFirstItem, indexOfLastItem);
+
+    //change page 
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
     return (
         <div className="row">
-            {items.map(item =>(
-                <div className="col-lg-2 col-md-3 col-sm-4 col-6">
-                    <div className="card mb-3" key={item.name}>
-                        <img className="card-img-top" src={item.img} alt={"Image of " + item.name} />
-                        <div className="card-body">
-                            <p className="card-title">{item.name}</p>
-                            <button type="button" className="btn btn-primary"><Link to={`/content/${item.name}`}>Details</Link></button>
-                        </div>
-                    </div>
-                </div>
-            ))}
+            {/* <FilterBar /> */}
+            <ListedCard items={currentItem} loading={loading} />
+            <Pagination itemPerPage={itemPerPage} totalItems={items.length} paginate={paginate} />
         </div>
     )
 }

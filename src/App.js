@@ -4,6 +4,7 @@ import About from './About';
 import Content from './Content';
 import Footer from './Footer';
 import ContentDetail from './ContentDetail';
+import NotFoundPage from './NotFoundPage';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 
@@ -18,6 +19,7 @@ function App() {
             <Route path="/about" component={About} />
             <Route path="/Content" exact component={Content} />
             <Route path="/Content/:id" component={ContentDetail} />
+            <Route component={NotFoundPage} />
           </Switch>
         </div>
         <Footer />

@@ -22,7 +22,7 @@ export default function ContentDetail( {match} ) {
         const item = await data.json();
         item.forEach(item => setItem(item));
 
-        console.log(item);
+        //console.log(item);
         
     };
 
