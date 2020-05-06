@@ -10,7 +10,7 @@ const Pagination = ({ itemPerPage, totalItems, paginate, currentPage }) => {
     //console.log(currentPage)
 
     return (
-        <nav className="row">
+        <nav className="row m-auto">
             <ul className="pagination pagination-sm">
 
                 <li key="firstpaginated" className={"page-item " + (currentPage === pageNumbers[0] ? 'disabled' : '')}>

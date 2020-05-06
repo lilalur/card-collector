@@ -6,7 +6,7 @@ export default function Nav() {
         <nav className="navbar navbar-expand-lg navbar-light bg-light mb-3">
             <span className="navbar-brand">
                 <Link to="/">
-                    <h1>Logo</h1>
+                    <img src="https://quantaya-gaming.org/wp-content/uploads/2017/02/hearthstone.png" className="img-fluid" alt="logo" width="150px" style={{filter: "invert(1)"}}/>
                 </Link>
             </span>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,9 +14,14 @@ export default function Nav() {
             </button>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav mr-auto">
-                    <li className="nav-item active">
+                    <li className="nav-item">
                         <Link to="/Content">
-                            <span className="nav-link">Card list <span className="sr-only">(current)</span></span>
+                            <span className="nav-link">Card list</span>
+                        </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/Stash">
+                            <span className="nav-link" href="#">Personal stash</span>
                         </Link>
                     </li>
                     <li className="nav-item">
