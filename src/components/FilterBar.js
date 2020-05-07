@@ -50,10 +50,10 @@ export const FilterBar = () => {
         return <div className="loader"></div>
     }
     return (
-        <div className="col-lg-11 col-md-11 col-sm-12 background-light card">
+        <div className="col-lg-11 col-md-11 col-sm-12 background-light card" id="filter-bar">
 
             {(Object.keys(filtersCollection).slice(1).map((item, i) => 
-                <ul className="list-group" key={i+"filtercategory"}>
+                <div key={i+"filtercategory"}>
                     <h3 className="mt-3 mb-3 filter-header">{item}
                         <span className="js-indicator-arrowup">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#333" width="24px" height="24px">
@@ -61,10 +61,12 @@ export const FilterBar = () => {
                             </svg>
                         </span>
                     </h3>
-                        {Object.values(filtersCollection).slice(1)[i].map((listItem, n) => 
-                            <li className="list-group-item" key={i+n+"filteritem"}>{listItem}</li>
-                        )}
-                </ul>
+                    <ul className="list-group">     
+                            {Object.values(filtersCollection).slice(1)[i].map((listItem, n) => 
+                                <li className="list-group-item" key={i+n+"filteritem"}>{listItem}</li>
+                            )}
+                    </ul>
+                </div>
             ))}
 
             {/* {filtersCollection.map((item, index) =>(

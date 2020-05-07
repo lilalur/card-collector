@@ -9,7 +9,7 @@ export default function Content() {
     //for loading data, maybe we dont need
     const [loading, setLoading] = useState(false);
     // For pagination
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(0);
     const [itemPerPage] = useState(12);
 
     useEffect(() => {
@@ -18,7 +18,7 @@ export default function Content() {
 
     const fetchItems = async () => {
         setLoading(true);
-        const data = await fetch(`https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/sets/Basic?locale=enGB&collectible=1`, {
+        const data = await fetch(`https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/sets/Classic?collectible=1`, {
                 "method": "GET",
                 "headers": {
                 "x-rapidapi-host": "omgvamp-hearthstone-v1.p.rapidapi.com",
@@ -28,6 +28,7 @@ export default function Content() {
         ).catch(err => { console.error(err); });
         const items = await data.json();
         setItems(items);
+        setCurrentPage(1);
         setLoading(false);
     };
     //get current posts
@@ -38,7 +39,7 @@ export default function Content() {
     //change page 
     const paginate = (pageNumber) => {setCurrentPage(pageNumber);}
     
-    //console.log((items[1]));
+    console.log((items));
 
     return (
         <div className="row">

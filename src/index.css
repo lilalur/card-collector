@@ -61,27 +61,11 @@ a, a:hover {
   transition: all 0.3s ease-in-out;
 }
 
-#list-container .card::after {
-  content: "";
-  border-radius: 5px;
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  opacity: 0;
-  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
+
 
 #list-container .card:hover {
   z-index: 9;
   background-color: #fff;
-  -webkit-transform: scale(1.25, 1.25);
-  transform: scale(1.25, 1.25);
-  transition-delay: 0.1s;
 }
 
 #list-container .card:hover::after {
@@ -118,4 +102,132 @@ a, a:hover {
   top: 2px;
   -webkit-transition: all 0.2s ease 0s;
   transition: all 0.2s ease 0s;
+}
+
+.scene {
+  width: 200px;
+  height: 260px;
+  perspective: 600px;
+}
+.gamecard {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+.gamecard__face {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+}
+.gamecard__face--front {
+  background: red;
+}
+
+.gamecard__face--back {
+  background: blue;
+  transform: rotateY( 180deg );
+}
+.gamecard.is-flipped {
+  transform: rotateY(180deg);
+}
+.gamecard { transform-origin: center right; }
+.gamecard.is-flipped {
+  transform: translateX(-100%) rotateY(-180deg);
+}
+
+.pagination {
+  flex-flow: wrap;
+}
+
+#filter-bar ul {
+    overflow: hidden;
+    max-height: 0;
+    -webkit-transition: max-height 1s; 
+    -moz-transition: max-height 1s; 
+    -ms-transition: max-height 1s; 
+    -o-transition: max-height 1s; 
+    transition: max-height 1s; 
+}
+#filter-bar div:hover ul {
+  overflow: hidden;
+  height: auto;
+  max-height: 1000px;
+  -webkit-transition: max-height 1s; 
+  -moz-transition: max-height 1s; 
+  -ms-transition: max-height 1s; 
+  -o-transition: max-height 1s; 
+  transition: max-height 1s; 
+}
+
+/* animations */
+.scale-up-swing:hover {
+	-webkit-animation: scale-up-swing 0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550) both;
+          animation: scale-up-swing 0.3s cubic-bezier(0.680, -0.550, 0.265, 1.550) both;
+          z-index: 9;
+}
+.scale-up-swing{
+  	-webkit-animation: scale-up-swing-out 0.1s cubic-bezier(0.680, -0.550, 0.265, 1.550) both;
+          animation: scale-up-swing-out 0.1s cubic-bezier(0.680, -0.550, 0.265, 1.550) both;
+          z-index: 8;
+}
+
+ @-webkit-keyframes scale-up-swing {
+  0% {
+    -webkit-transform: scale(1) rotate(1deg) translateZ(0);
+            transform: scale(1) rotate(1deg) translateZ(0);
+    -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+  100% {
+    -webkit-transform: scale(1.4) rotate(0deg) translateZ(50px);
+            transform: scale(1.4) rotate(0deg) translateZ(50px);
+    -webkit-box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.45);
+            box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.45);
+  }
+}
+@keyframes scale-up-swing {
+  0% {
+    -webkit-transform: scale(1) rotate(1deg) translateZ(0);
+            transform: scale(1) rotate(1deg) translateZ(0);
+    -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+  100% {
+    -webkit-transform: scale(1.4) rotate(0deg) translateZ(50px);
+            transform: scale(1.4) rotate(0deg) translateZ(50px);
+    -webkit-box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.45);
+            box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.45);
+  }
+}
+
+@-webkit-keyframes scale-up-swing-out {
+  0% {
+    -webkit-transform: scale(1) rotate(2deg) translateZ(50px);
+            transform: scale(1) rotate(2deg) translateZ(50px);
+    -webkit-box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.45);
+            box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.45);
+  }
+  100% {
+    -webkit-transform: scale(1) rotate(0deg) translateZ(0);
+            transform: scale(1) rotate(0deg) translateZ(0);
+    -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}
+@keyframes scale-up-swing-out {
+  0% {
+    -webkit-transform: scale(1) rotate(2deg) translateZ(50px);
+            transform: scale(1) rotate(2deg) translateZ(50px);
+    -webkit-box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.45);
+            box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.45);
+  }
+  100% {
+    -webkit-transform: scale(1) rotate(0deg) translateZ(0);
+            transform: scale(1) rotate(0deg) translateZ(0);
+    -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
 }
