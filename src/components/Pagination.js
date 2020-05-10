@@ -7,7 +7,7 @@ const Pagination = ({ itemPerPage, totalItems, paginate, currentPage }) => {
         pageNumbers.push(i);
     }
 
-    //console.log(currentPage)
+    console.log(currentPage)
 
     return (
         <nav className="row m-auto">

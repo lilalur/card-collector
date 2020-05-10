@@ -51,16 +51,16 @@ export const FilterBar = () => {
     }
     return (
         <div className="col-lg-11 col-md-11 col-sm-12 background-light card" id="filter-bar">
-
+            <p>Filter by</p>
             {(Object.keys(filtersCollection).slice(1).map((item, i) => 
                 <div key={i+"filtercategory"}>
-                    <h3 className="mt-3 mb-3 filter-header">{item}
+                    <h5 className="mt-3 mb-3 filter-header">{item}
                         <span className="js-indicator-arrowup">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#333" width="24px" height="24px">
                                 <path d="M12 14.69L5.03 7.72a.75.75 0 0 0-1.06 1.06l7.5 7.5a.75.75 0 0 0 1.06 0l7.5-7.5a.75.75 0 0 0-1.06-1.06L12 14.69z"></path>
                             </svg>
                         </span>
-                    </h3>
+                    </h5>
                     <ul className="list-group">     
                             {Object.values(filtersCollection).slice(1)[i].map((listItem, n) => 
                                 <li className="list-group-item" key={i+n+"filteritem"}>{listItem}</li>

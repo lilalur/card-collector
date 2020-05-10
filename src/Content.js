@@ -39,7 +39,8 @@ export default function Content() {
     //change page 
     const paginate = (pageNumber) => {setCurrentPage(pageNumber);}
     
-    console.log((items));
+    ///experimenting
+    console.log(indexOfFirstItem, currentPage, currentPage+1, currentPage+2, '...', indexOfLastItem, " MARKED");
 
     return (
         <div className="row">
