@@ -6,8 +6,8 @@ const Pagination = ({ itemPerPage, totalItems, paginate, currentPage }) => {
     for (let i = 1; i <= Math.ceil(totalItems / itemPerPage); i++) {
         pageNumbers.push(i);
     }
-
-    console.log(currentPage)
+    
+    //console.log(currentPage)
 
     return (
         <nav className="row m-auto">

@@ -14,7 +14,7 @@ function App() {
     <Router>
       <div className="App">
         <Navbar />
-        <div className="container">
+        <main className="container">
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/about" component={About} />
@@ -23,7 +23,7 @@ function App() {
             <Route path="/Content/:id" component={ContentModal} />
             <Route component={NotFoundPage} />
           </Switch>
-        </div>
+        </main>
         <Footer />
       </div>
     </Router>

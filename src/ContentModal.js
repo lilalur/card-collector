@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ListCreator from './components/ListCreator';
 
 export default function ContentModal( {match} ) {
     const [item, setItem] = useState([]);
@@ -22,7 +23,7 @@ export default function ContentModal( {match} ) {
         setItem(item[0]);
         setLoading(false);
     };
-    console.log(item)
+    //console.log(item)
     if(loading) {
       return <div className="loader"></div>
     }
@@ -52,20 +53,26 @@ export default function ContentModal( {match} ) {
             <h1 className="display-3 text-center text-md-left">
               The card of <span className="text-primary">{item.name}</span> <br /> 
             </h1>
-            <p className="text-center text-md-left">
-              {item.cost !== undefined && "Cost: "+ item.cost +" | "} 
-              {item.attack !== undefined && "Attack: "+ item.attack +" | "}
-              {item.health !== undefined && "Health: "+ item.health }
-            </p>
 
-            {item.text !== undefined && <p className="text-center text-md-left">{item.text.replace(/(<([^>]+)>)/ig, "")}</p>}
+            <ListCreator listKeys={['Cost: ', 'Attack: ', 'Health: ']} listImputs={[item.cost, item.attack, item.health]} />
 
-            <p className="text-center text-md-left">
-              {item.rarity !== undefined && item.rarity +" | "} 
-              {item.faction !== undefined && item.faction +" | "}
-              {item.playerClass !== undefined && item.playerClass+" | "}
-              {item.type !== undefined && item.type}
-            </p>
+            {/* <p className="text-center text-md-left">
+              { item.cost !== undefined && "Cost: "+ item.cost } 
+              { item.attack !== undefined && "Attack: "+ item.attack }
+              { item.health !== undefined && "Health: "+ item.health }
+            </p> */}
+
+            {/* removing the formatting HTML tags form the return, soem text has some old HTML formatting tags */}
+            {item.text !== undefined && <p className="text-center text-md-left">{item.text.replace(/(<([^>]+)>)/ig, "")}</p>} 
+
+            <ListCreator listImputs={[item.rarity, item.faction, item.playerClass, item.type]} />
+
+            {/* <p className="text-center text-md-left">
+              { item.rarity !== undefined && item.rarity } 
+              { item.faction !== undefined && item.faction }
+              { item.playerClass !== undefined && item.playerClass }
+              { item.type !== undefined && item.type }
+            </p> */}
           </div>
         </div>
 

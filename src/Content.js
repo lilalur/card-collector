@@ -28,7 +28,8 @@ export default function Content() {
         ).catch(err => { console.error(err); });
         const items = await data.json();
         setItems(items);
-        setCurrentPage(1);
+        //setCurrentPage(1);
+        localStorage.getItem('currentPage') === null ? setCurrentPage(1) : setCurrentPage(parseInt(localStorage.getItem('currentPage')));
         setLoading(false);
     };
     //get current posts
@@ -37,10 +38,13 @@ export default function Content() {
     const currentItem = items.slice(indexOfFirstItem, indexOfLastItem);
 
     //change page 
-    const paginate = (pageNumber) => {setCurrentPage(pageNumber);}
-    
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber);
+        localStorage.setItem('currentPage', pageNumber);
+    }
+    //console.log(localStorage.getItem('currentPage') + " the local storage value");
     ///experimenting
-    console.log(indexOfFirstItem, currentPage, currentPage+1, currentPage+2, '...', indexOfLastItem, " MARKED");
+    //console.log(indexOfFirstItem, currentPage, currentPage+1, currentPage+2, '...', indexOfLastItem, " MARKED");
 
     return (
         <div className="row">
