@@ -3,7 +3,6 @@ import ListCreator from './components/ListCreator';
 
 export default function ContentModal( {match} ) {
     const [item, setItem] = useState([]);
-    const [image, setImage] = useState('https://dummyimage.com/260x260/f2f2f2/a1a1a1&text=Image&nbsp;not&nbsp;found');
     const [loading, setLoading] = useState(false); // for the loading
     
     useEffect(() => {
@@ -55,24 +54,12 @@ export default function ContentModal( {match} ) {
             </h1>
 
             <ListCreator listKeys={['Cost: ', 'Attack: ', 'Health: ']} listImputs={[item.cost, item.attack, item.health]} />
-
-            {/* <p className="text-center text-md-left">
-              { item.cost !== undefined && "Cost: "+ item.cost } 
-              { item.attack !== undefined && "Attack: "+ item.attack }
-              { item.health !== undefined && "Health: "+ item.health }
-            </p> */}
-
+            
             {/* removing the formatting HTML tags form the return, soem text has some old HTML formatting tags */}
             {item.text !== undefined && <p className="text-center text-md-left">{item.text.replace(/(<([^>]+)>)/ig, "")}</p>} 
 
             <ListCreator listImputs={[item.rarity, item.faction, item.playerClass, item.type]} />
 
-            {/* <p className="text-center text-md-left">
-              { item.rarity !== undefined && item.rarity } 
-              { item.faction !== undefined && item.faction }
-              { item.playerClass !== undefined && item.playerClass }
-              { item.type !== undefined && item.type }
-            </p> */}
           </div>
         </div>
 
