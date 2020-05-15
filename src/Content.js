@@ -76,9 +76,9 @@ export default function Content() {
                 <p>Page {currentPage}/{Math.ceil(items.length/itemPerPage)} ({items.length} card{items.length !== 1 && 's'})</p>
                 
             </div>
-            {/* <div className="col-lg-3 col-md-3 col-sm-12 mb-3 filterbar">
+            <div className="col-lg-3 col-md-3 col-sm-12 mb-3 filterbar">
                 <FilterBar />
-            </div> */}
+            </div>
             <div className="col-lg-9 col-md-9 col-sm-12">
                 <div className="row">
                     <UseSearch currentPage={currentPage} handleChange={handleChange} handleSubmit={handleSubmit} />
