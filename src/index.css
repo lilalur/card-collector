@@ -8,6 +8,18 @@ body {
   background-color: #e0e0e0;
 }
 
+.App { 
+  display: flex;
+  flex-direction: column;
+  height: 100vh; 
+}
+.App main {
+  flex: 1 0 auto;
+}
+.App footer {
+  flex-shrink: 0;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -235,4 +247,14 @@ a, a:hover {
 
 .content-modal-stats:not(:last-child)::after {
   content: ' | ';
+}
+
+
+/* search bar */
+.search-bar > span {
+  position: absolute;
+  right: 10px;
+  padding: 10px 12px;
+  color: ;
+  pointer-events: none;
 }

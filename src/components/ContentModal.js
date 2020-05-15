@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ListCreator from './components/ListCreator';
+import ListCreator from './ListCreator';
 
 export default function ContentModal( {match} ) {
     const [item, setItem] = useState([]);

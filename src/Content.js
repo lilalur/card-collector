@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import ListedCard from './components/ListedCard';
 import Pagination from './components/Pagination';
 import FilterBar from './components/FilterBar';
+import UseSearch from './components/useSearch';
 
 export default function Content() {
     const [items, setItems] = useState([]);
@@ -27,7 +28,11 @@ export default function Content() {
             }
         ).catch(err => { console.error(err); });
         const items = await data.json();
-        setItems(items);
+
+        setItems(items.filter((item) => item.name.toLowerCase().includes(localStorage.getItem('searchWord'))));
+        localStorage.setItem('searchWord', ''); 
+        //this filter works for searching in the entered stuff in the array
+        // .filter((item) => item.name.includes('as')) 
         //setCurrentPage(1);
         localStorage.getItem('currentPage') === null ? setCurrentPage(1) : setCurrentPage(parseInt(localStorage.getItem('currentPage')));
         setLoading(false);
@@ -45,16 +50,25 @@ export default function Content() {
     //console.log(localStorage.getItem('currentPage') + " the local storage value");
     ///experimenting
     //console.log(indexOfFirstItem, currentPage, currentPage+1, currentPage+2, '...', indexOfLastItem, " MARKED");
+    // const searchCards = (searchWord) => {
+    //     setSearchWords(searchWord);
+    //     localStorage.setItem('searchWord', searchWord);
+    // }
 
     return (
         <div className="row">
             <div className="col-12">
                 <p>Page {currentPage}/{Math.ceil(items.length/itemPerPage)} ({items.length} card{items.length !== 1 && 's'})</p>
+                
             </div>
-            <div className="col-lg-3 col-md-3 col-sm-12 mb-3 filterbar">
+            {/* <div className="col-lg-3 col-md-3 col-sm-12 mb-3 filterbar">
                 <FilterBar />
-            </div>
+            </div> */}
             <div className="col-lg-9 col-md-9 col-sm-12">
+                <div className="row">
+                    <UseSearch currentPage={currentPage} />
+                </div>
+                
                 <div className="row" id="list-container">
                 
                     <ListedCard items={currentItem} loading={loading} />
