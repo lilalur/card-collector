@@ -6,7 +6,8 @@ import UseSearch from './components/useSearch';
 
 export default function Content() {
     const [items, setItems] = useState([]);
-
+    //for filtering
+    const [searchWords, setSearchWords] = useState('');
     //for loading data, maybe we dont need
     const [loading, setLoading] = useState(false);
     // For pagination
@@ -15,7 +16,7 @@ export default function Content() {
 
     useEffect(() => {
         fetchItems();
-    }, []);
+    }, [searchWords]);
 
     const fetchItems = async () => {
         setLoading(true);
@@ -29,7 +30,7 @@ export default function Content() {
         ).catch(err => { console.error(err); });
         const items = await data.json();
 
-        setItems(items.filter((item) => item.name.toLowerCase().includes(localStorage.getItem('searchWord'))));
+        setItems(items.filter((item) => item.name.toLowerCase().includes(searchWords)));
         localStorage.setItem('searchWord', ''); 
         //this filter works for searching in the entered stuff in the array
         // .filter((item) => item.name.includes('as')) 
@@ -47,6 +48,16 @@ export default function Content() {
         setCurrentPage(pageNumber);
         localStorage.setItem('currentPage', pageNumber);
     }
+
+    const handleChange = e => {
+        setSearchWords(e.target.value);
+        localStorage.clear('currentPage');
+    };
+
+    const handleSubmit = e => {
+        e.preventDefault();
+    }
+
     //console.log(localStorage.getItem('currentPage') + " the local storage value");
     ///experimenting
     //console.log(indexOfFirstItem, currentPage, currentPage+1, currentPage+2, '...', indexOfLastItem, " MARKED");
@@ -54,6 +65,10 @@ export default function Content() {
     //     setSearchWords(searchWord);
     //     localStorage.setItem('searchWord', searchWord);
     // }
+
+    // test
+    // setTimeout(() => { setCurrentPage(2); }, 10000);
+
 
     return (
         <div className="row">
@@ -66,7 +81,7 @@ export default function Content() {
             </div> */}
             <div className="col-lg-9 col-md-9 col-sm-12">
                 <div className="row">
-                    <UseSearch currentPage={currentPage} />
+                    <UseSearch currentPage={currentPage} handleChange={handleChange} handleSubmit={handleSubmit} />
                 </div>
                 
                 <div className="row" id="list-container">
