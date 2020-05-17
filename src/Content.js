@@ -30,7 +30,7 @@ export default function Content() {
         ).catch(err => { console.error(err); });
         const items = await data.json();
 
-        setItems(items.filter((item) => item.name.toLowerCase().includes(searchWords)));
+        setItems(items.filter((item) => item.name.toLowerCase().includes(searchWords.toLowerCase())));
         localStorage.setItem('searchWord', ''); 
         //this filter works for searching in the entered stuff in the array
         // .filter((item) => item.name.includes('as')) 

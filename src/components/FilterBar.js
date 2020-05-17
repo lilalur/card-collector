@@ -47,7 +47,7 @@ export const FilterBar = () => {
     
 
     if(loading) {
-        return <div className="loader"></div>
+        return <div className='loader--text'></div>
     }
     return (
         <div className="col-lg-11 col-md-11 col-sm-12 background-light card" id="filter-bar">
