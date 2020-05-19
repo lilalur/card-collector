@@ -6,7 +6,7 @@ export const Loader = () => {
         cards.push(
             <div className="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6 loader--dot" key={i+"loadercard"}>
                 <div className="card mb-3 scale-up-swing">
-                        <img className="shadowed grow card-img-top" src="http://wow.zamimg.com/images/hearthstone/backs/original/Card_Back_Default.png"  />
+                        <img className="shadowed grow card-img-top" src="http://wow.zamimg.com/images/hearthstone/backs/original/Card_Back_Default.png" alt="cardback" />
                 </div>
             </div>
         );

@@ -6,22 +6,24 @@ export default function ContentModal( {match} ) {
     const [loading, setLoading] = useState(false); // for the loading
     
     useEffect(() => {
-        fetchItem();
-    }, []);
+        const fetchItem = async () => {
+            setLoading(true);
+            const data = await fetch(`https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/${match.params.id}`, {
+                "method": "GET",
+                "headers": {
+                    "x-rapidapi-host": "omgvamp-hearthstone-v1.p.rapidapi.com",
+                    "x-rapidapi-key": "4f6f8870c0mshe2cdfbd2d8bb945p1ceacfjsn94ca2e3b42a3"
+                }
+            }).catch(err => { console.error(err); });
+            const item = await data.json();
+            setItem(item[0]);
+            setLoading(false);
+        };
 
-    const fetchItem = async () => {
-        setLoading(true);
-        const data = await fetch(`https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/${match.params.id}`, {
-            "method": "GET",
-            "headers": {
-                "x-rapidapi-host": "omgvamp-hearthstone-v1.p.rapidapi.com",
-                "x-rapidapi-key": "4f6f8870c0mshe2cdfbd2d8bb945p1ceacfjsn94ca2e3b42a3"
-            }
-        }).catch(err => { console.error(err); });
-        const item = await data.json();
-        setItem(item[0]);
-        setLoading(false);
-    };
+        fetchItem();
+    }, [match.params.id]);
+
+
     //console.log(item)
     if(loading) {
       return <div className="loader"></div>

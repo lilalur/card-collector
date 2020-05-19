@@ -15,29 +15,30 @@ export default function Content() {
     const [itemPerPage] = useState(12);
 
     useEffect(() => {
+        const fetchItems = async () => {
+            setLoading(true);
+            const data = await fetch(`https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/sets/Classic?collectible=1`, {
+                    "method": "GET",
+                    "headers": {
+                    "x-rapidapi-host": "omgvamp-hearthstone-v1.p.rapidapi.com",
+                    "x-rapidapi-key": "4f6f8870c0mshe2cdfbd2d8bb945p1ceacfjsn94ca2e3b42a3"
+                    }
+                }
+            ).catch(err => { console.error(err); });
+            const items = await data.json();
+    
+            setItems(items.filter((item) => item.name.toLowerCase().includes(searchWords.toLowerCase())));
+            localStorage.setItem('searchWord', ''); 
+            //this filter works for searching in the entered stuff in the array
+            // .filter((item) => item.name.includes('as')) 
+            //setCurrentPage(1);
+            localStorage.getItem('currentPage') === null ? setCurrentPage(1) : setCurrentPage(parseInt(localStorage.getItem('currentPage')));
+            setLoading(false);
+        };
+
         fetchItems();
     }, [searchWords]);
 
-    const fetchItems = async () => {
-        setLoading(true);
-        const data = await fetch(`https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/sets/Classic?collectible=1`, {
-                "method": "GET",
-                "headers": {
-                "x-rapidapi-host": "omgvamp-hearthstone-v1.p.rapidapi.com",
-                "x-rapidapi-key": "4f6f8870c0mshe2cdfbd2d8bb945p1ceacfjsn94ca2e3b42a3"
-                }
-            }
-        ).catch(err => { console.error(err); });
-        const items = await data.json();
-
-        setItems(items.filter((item) => item.name.toLowerCase().includes(searchWords.toLowerCase())));
-        localStorage.setItem('searchWord', ''); 
-        //this filter works for searching in the entered stuff in the array
-        // .filter((item) => item.name.includes('as')) 
-        //setCurrentPage(1);
-        localStorage.getItem('currentPage') === null ? setCurrentPage(1) : setCurrentPage(parseInt(localStorage.getItem('currentPage')));
-        setLoading(false);
-    };
     //get current posts
     const indexOfLastItem = currentPage * itemPerPage;
     const indexOfFirstItem = indexOfLastItem - itemPerPage;
