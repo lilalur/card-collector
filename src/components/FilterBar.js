@@ -19,40 +19,17 @@ export const FilterBar = ( {filterByThisItem, filterByCollectible, collectible} 
         }).catch(err => { console.error(err); });
         const filtersCollection = await response.json();
         setFiltersCollection(filtersCollection);
-        //filters.forEach(filters => {setFilters(filters);});
         setLoading(false);
-        // console.log(array(filtersCollection));
-        // console.log(filtersCollection);
-        // console.log("keys");
-        // console.log(Object.keys(filtersCollection));
-        // console.log("values");
-        // console.log(Object.values(filtersCollection));
-        
-        // console.log("entries");
-        // console.log(Object.entries(filtersCollection));
-
-        // Try to find the non array entries and turn ito an array with only 1 entry
-        // Object.entries(filtersCollection).map((item, i) => {
-        //     console.log(item[0] + " is " + Array.isArray(item[0]));
-        //     Object.entries(filtersCollection).map((listItem, n) => {
-        //         console.log(" - " +listItem[1] + " is " + Array.isArray(listItem));
-        //     })
-        // })
-        //console.log(filtersCollection)
     };
-    // const filterableList = Object.values(filtersCollection).map((item, i) => {
-    //     Array.isArray(item[i]) ? item[i].split() : ''
-    // });
         
     
-    
-
     if(loading) {
         return <div className='loader--text'></div>
     }
     return (
         <div className="col-lg-11 col-md-11 col-sm-12 background-light card" id="filter-bar">
             <p>Filter by</p>
+            {/* Set the slice for 1 to cut out the patch note from the filter list and set for -1 to cut out the locales as that not part of this filtering */}
             {(Object.keys(filtersCollection).slice(1,-1).map((item, i) => 
                 <div key={i+"filtercategory"}>
                     <h5 className="mt-3 mb-3 filter-header">{item}
@@ -62,7 +39,8 @@ export const FilterBar = ( {filterByThisItem, filterByCollectible, collectible} 
                             </svg>
                         </span>
                     </h5>
-                    <ul className="list-group">     
+                    <ul className="list-group">
+                      {/* Creating and listing all the subcategory as a list under each category */}
                         {Object.values(filtersCollection).slice(1)[i].map((listItem, n) => 
                             <li className="list-group-item" key={i+n+"filteritem"} onClick={filterByThisItem}>{listItem}</li>
                         )}

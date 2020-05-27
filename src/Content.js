@@ -35,15 +35,12 @@ export default function Content() {
             const items = await data.json();
             data.ok ? setItems(items.filter((item) => item.name.toLowerCase().includes(searchWords.toLowerCase()))) : setItems([]);
             localStorage.setItem('searchWord', ''); 
-            //this filter works for searching in the entered stuff in the array
-            // .filter((item) => item.name.includes('as')) 
-            //setCurrentPage(1);
             localStorage.getItem('currentPage') === null ? setCurrentPage(1) : setCurrentPage(parseInt(localStorage.getItem('currentPage')));
             setLoading(false);
         };
 
         fetchItems();
-    }, [searchWords, filter, collectible]);
+    }, [searchWords, filter, locale, collectible]);
 
     //get current posts
     const indexOfLastItem = currentPage * itemPerPage;
@@ -58,7 +55,7 @@ export default function Content() {
 
     const handleChange = e => {
         setSearchWords(e.target.value);
-        localStorage.clear('currentPage');
+        localStorage.removeItem('currentPage');
     };
 
     const handleSubmit = e => {
@@ -69,21 +66,15 @@ export default function Content() {
         //console.log([e.target.parentElement.previousSibling.textContent.replace(/standard|wild/gi, 'sets'), e.target.textContent.replace(/ /g, '%2520')]);
         localStorage.setItem('currentCategory', e.target.parentElement.previousSibling.textContent.replace(/standard|wild/gi, 'sets'));
         localStorage.setItem('currentSubCategory', e.target.textContent.replace(/ /g, '%2520'));
-        localStorage.clear('currentPage');
+        localStorage.removeItem('currentPage');
         setFilter([e.target.parentElement.previousSibling.textContent.replace(/standard|wild/gi, 'sets'), e.target.textContent.replace(/ /g, '%2520')]);
     };
     
     const filterByCollectible = () => {
-        localStorage.clear('currentPage');
+        localStorage.removeItem('currentPage');
         setCollectible(collectible === 0 ? 1 : 0);
     };
-    //console.log(localStorage.getItem('currentPage') + " the local storage value");
-    ///experimenting
-    //console.log(indexOfFirstItem, currentPage, currentPage+1, currentPage+2, '...', indexOfLastItem, " MARKED");
-    // const searchCards = (searchWord) => {
-    //     setSearchWords(searchWord);
-    //     localStorage.setItem('searchWord', searchWord);
-    // }
+
 
     // test
     // setTimeout(() => { setCurrentPage(2); }, 10000);
@@ -107,7 +98,7 @@ export default function Content() {
                     { (Math.ceil(items.length/itemPerPage) === 0 && loading === false) && <div className="col-12">No cards found...</div> }
 
                     <div className="col-12">
-                    { (items.length / itemPerPage) >= 1 && <Pagination itemPerPage={itemPerPage} totalItems={items.length} paginate={paginate} currentPage={currentPage} /> }
+                    { ((items.length / itemPerPage) >= 1 && loading === false) && <Pagination itemPerPage={itemPerPage} totalItems={items.length} paginate={paginate} currentPage={currentPage} /> }
                     </div>
                 </div>
             </div>
