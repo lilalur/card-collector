@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-export const FilterBar = () => {
+export const FilterBar = ( {filterByThisItem, filterByCollectible, collectible} ) => {
     const [filtersCollection, setFiltersCollection] = useState([]);
     const [loading, setLoading] = useState(false); // for the loading
 
@@ -38,6 +38,7 @@ export const FilterBar = () => {
         //         console.log(" - " +listItem[1] + " is " + Array.isArray(listItem));
         //     })
         // })
+        //console.log(filtersCollection)
     };
     // const filterableList = Object.values(filtersCollection).map((item, i) => {
     //     Array.isArray(item[i]) ? item[i].split() : ''
@@ -52,7 +53,7 @@ export const FilterBar = () => {
     return (
         <div className="col-lg-11 col-md-11 col-sm-12 background-light card" id="filter-bar">
             <p>Filter by</p>
-            {(Object.keys(filtersCollection).slice(1).map((item, i) => 
+            {(Object.keys(filtersCollection).slice(1,-1).map((item, i) => 
                 <div key={i+"filtercategory"}>
                     <h5 className="mt-3 mb-3 filter-header">{item}
                         <span className="js-indicator-arrowup">
@@ -62,19 +63,14 @@ export const FilterBar = () => {
                         </span>
                     </h5>
                     <ul className="list-group">     
-                            {Object.values(filtersCollection).slice(1)[i].map((listItem, n) => 
-                                <li className="list-group-item" key={i+n+"filteritem"}>{listItem}</li>
-                            )}
+                        {Object.values(filtersCollection).slice(1)[i].map((listItem, n) => 
+                            <li className="list-group-item" key={i+n+"filteritem"} onClick={filterByThisItem}>{listItem}</li>
+                        )}
                     </ul>
                 </div>
             ))}
-
-            {/* {filtersCollection.map((item, index) =>(
-                <h3>{Object.keys(item)[index]}</h3>
-                <ul className="list-group">
-                    <li className="list-group-item">{Object.values(item)[index]}</li>
-                </ul>
-            ))} */}
+            <hr />
+            <p alt="col" className="d-inline-flex justify-content-between align-items-center"><span>Collectibles only:</span> <input type="checkbox" id="myCheck" onChange={filterByCollectible} defaultChecked={collectible===1?1:0}></input></p>
         </div>
     )
 }

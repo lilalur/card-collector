@@ -167,7 +167,7 @@ a, a:hover {
 #filter-bar div:hover ul {
   overflow: hidden;
   height: auto;
-  max-height: 1000px;
+  max-height: 10000px;
   -webkit-transition: max-height 1s; 
   -moz-transition: max-height 1s; 
   -ms-transition: max-height 1s; 

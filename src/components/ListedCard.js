@@ -9,8 +9,8 @@ const ListedCard = ({ items, loading }) => {
     //console.log(items);
     return (
         <>
-            {items.map(item =>(
-                <div className="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6" key={item.name}>
+            {items.map((item, i) =>(
+                <div className="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6" key={item.name+i}>
                     <div className="card mb-3 scale-up-swing" > 
                     {/* {console.log(this)} */}
                         <Link to={`/content/${item.name}`}>
