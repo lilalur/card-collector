@@ -53,6 +53,7 @@ export default function Content() {
         localStorage.setItem('currentPage', pageNumber);
     };
 
+    //search bar function
     const handleChange = e => {
         setSearchWords(e.target.value);
         localStorage.removeItem('currentPage');
@@ -62,6 +63,7 @@ export default function Content() {
         e.preventDefault();
     };
 
+    //filter bar function
     const filterByThisItem = e => {
         //console.log([e.target.parentElement.previousSibling.textContent.replace(/standard|wild/gi, 'sets'), e.target.textContent.replace(/ /g, '%2520')]);
         localStorage.setItem('currentCategory', e.target.parentElement.previousSibling.textContent.replace(/standard|wild/gi, 'sets'));
@@ -70,6 +72,7 @@ export default function Content() {
         setFilter([e.target.parentElement.previousSibling.textContent.replace(/standard|wild/gi, 'sets'), e.target.textContent.replace(/ /g, '%2520')]);
     };
     
+        //filterbar adding extra attributes
     const filterByCollectible = () => {
         localStorage.removeItem('currentPage');
         setCollectible(collectible === 0 ? 1 : 0);
@@ -82,7 +85,7 @@ export default function Content() {
     return (
         <div className="row">
             <div className="col-12">
-                <p>Page {currentPage}/{Math.ceil(items.length/itemPerPage)} ({items.length} card{items.length !== 1 && 's'})</p>
+                <p>Page {currentPage}/{Math.ceil(items.length/itemPerPage)} ({items.length} {localStorage.getItem('currentSubCategory').replace('%2520',' ')} card{items.length >= 2 && 's'})</p>
             </div>
             <div className="col-lg-3 col-md-3 col-sm-12 mb-3 filterbar">
                 <FilterBar filterByThisItem={filterByThisItem} filterByCollectible={filterByCollectible} collectible={collectible} />
