@@ -34,7 +34,7 @@ export default function Content() {
             ).catch(err => {
                 console.log(err);
             });
-            console.log(data);
+            // console.log(data);
             const items = await data.json();
             data.ok ? setItems(items.filter((item) => item.name.toLowerCase().includes(searchWords.toLowerCase()))) : setItems([]);
             localStorage.setItem('searchWord', ''); 

@@ -33,7 +33,7 @@ export const FilterBar = ( {filterByThisItem, filterByCollectible, collectible} 
         };
     };
 
-    console.log(localStorage.getItem('currentCategory'))
+    //console.log(localStorage.getItem('currentCategory'))
 
     if(loading) {
         return <div className='loader--text'></div>
