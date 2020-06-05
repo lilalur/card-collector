@@ -24,7 +24,6 @@ export const FilterBar = ( {filterByThisItem, filterByCollectible, collectible} 
 
         // make an array with the exact number of each item will get listed as filter and set an array for them as false (closed)
         Object.keys(filtersCollection).map(() => selected.push(false));
-        console.log(selected)
     };
 
     // changing the status of the list item if its opened or not

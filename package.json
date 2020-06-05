@@ -1,5 +1,6 @@
 {
-  "name": "photography_guide",
+  "name": "card_collector",
+  "homepage": ".",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -9,7 +10,8 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "typescript": "^3.9.5"
   },
   "scripts": {
     "start": "react-scripts start",
