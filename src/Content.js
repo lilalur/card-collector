@@ -4,6 +4,9 @@ import Pagination from './components/Pagination';
 import FilterBar from './components/FilterBar';
 import UseSearch from './components/useSearch';
 
+localStorage.setItem('currentCategory', "sets");
+localStorage.setItem('currentSubCategory', "Classic");
+
 export default function Content() {
     const [items, setItems] = useState([]);
     //for filtering

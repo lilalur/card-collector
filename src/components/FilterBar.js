@@ -6,32 +6,32 @@ export const FilterBar = ( {filterByThisItem, filterByCollectible, collectible} 
     const [selected, setSelected] = useState([]);
 
     useEffect(() => {
+        const fetchFiltersCollection = async () => {
+            setLoading(true);
+            const response = await fetch("https://omgvamp-hearthstone-v1.p.rapidapi.com/info", {
+                "method": "GET",
+                "headers": {
+                    "x-rapidapi-host": "omgvamp-hearthstone-v1.p.rapidapi.com",
+                    "x-rapidapi-key": "4f6f8870c0mshe2cdfbd2d8bb945p1ceacfjsn94ca2e3b42a3"
+                }
+            }).catch(err => { console.error(err); });
+            const filtersCollection = await response.json();
+            setFiltersCollection(filtersCollection);
+            setLoading(false);
+
+            // make an array with the exact number of each item will get listed as filter and set an array for them as false (closed)
+            Object.keys(filtersCollection).map(() => selected.push(false));
+        };
         fetchFiltersCollection();
     }, []);
 
-    const fetchFiltersCollection = async () => {
-        setLoading(true);
-        const response = await fetch("https://omgvamp-hearthstone-v1.p.rapidapi.com/info", {
-            "method": "GET",
-            "headers": {
-                "x-rapidapi-host": "omgvamp-hearthstone-v1.p.rapidapi.com",
-                "x-rapidapi-key": "4f6f8870c0mshe2cdfbd2d8bb945p1ceacfjsn94ca2e3b42a3"
-            }
-        }).catch(err => { console.error(err); });
-        const filtersCollection = await response.json();
-        setFiltersCollection(filtersCollection);
-        setLoading(false);
-
-        // make an array with the exact number of each item will get listed as filter and set an array for them as false (closed)
-        Object.keys(filtersCollection).map(() => selected.push(false));
+    let filterCategoryTriggered = (i) => {
+        return () => {
+            let newFilterArr = [...selected];
+            newFilterArr[i] = !selected[i];
+            setSelected(newFilterArr);
+        };
     };
-
-    // changing the status of the list item if its opened or not
-    const filterCategoryTriggered = i => e => {
-        let newFilterArr = [...selected];
-        newFilterArr[i] = !selected[i]; 
-        setSelected(newFilterArr);
-    }
 
     console.log(localStorage.getItem('currentCategory'))
 
@@ -40,7 +40,7 @@ export const FilterBar = ( {filterByThisItem, filterByCollectible, collectible} 
     }
     return (
         <div className="p-2 background-light card" id="filter-bar">
-            <p>Filter by</p>
+            <p>Filter by {localStorage.getItem('currentCategory')}</p>
             {/* Set the slice for 1 to cut out the patch note from the filter list and set for -1 to cut out the locales as that not part of this filtering */}
             {(Object.keys(filtersCollection).slice(1,-1).map((item, i) => 
                 <div key={i+"filtercategory"} className={localStorage.getItem('currentCategory').toLowerCase() === item.toLowerCase() && "bg-dark text-white"}>
@@ -62,7 +62,7 @@ export const FilterBar = ( {filterByThisItem, filterByCollectible, collectible} 
             <hr />
             <p alt="col" className="d-inline-flex justify-content-between align-items-center"><span>Collectibles only:</span> <input type="checkbox" id="myCheck" onChange={filterByCollectible} defaultChecked={collectible===1?1:0}></input></p>
         </div>
-    )
+    );
 }
 
 export default FilterBar;
