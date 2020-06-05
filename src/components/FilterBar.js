@@ -40,12 +40,12 @@ export const FilterBar = ( {filterByThisItem, filterByCollectible, collectible} 
         return <div className='loader--text'></div>
     }
     return (
-        <div className="col-lg-12 col-md-12 col-sm-12 background-light card" id="filter-bar">
+        <div className="p-2 background-light card" id="filter-bar">
             <p>Filter by</p>
             {/* Set the slice for 1 to cut out the patch note from the filter list and set for -1 to cut out the locales as that not part of this filtering */}
             {(Object.keys(filtersCollection).slice(1,-1).map((item, i) => 
                 <div key={i+"filtercategory"} className={localStorage.getItem('currentCategory').toLowerCase() === item.toLowerCase() && "bg-dark text-white"}>
-                    <h5 className={`mt-3 mb-3 filter-header ${selected[i] && "selected"}`} onClick={filterCategoryTriggered(i)}>{item}
+                    <h5 className={`p-3 filter-header ${selected[i] ? "selected" : ""}`} onClick={filterCategoryTriggered(i)}>{item}
                         <span className={`${selected[i] ? "js-indicator-arrowup" : "js-indicator-arrowdown"}`}>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#333" width="24px" height="24px">
                                 <path d="M12 14.69L5.03 7.72a.75.75 0 0 0-1.06 1.06l7.5 7.5a.75.75 0 0 0 1.06 0l7.5-7.5a.75.75 0 0 0-1.06-1.06L12 14.69z"></path>
