@@ -75,6 +75,7 @@ export default function Content() {
         //filterbar adding extra attributes
     const filterByCollectible = () => {
         localStorage.removeItem('currentPage');
+        localStorage.setItem('collectible', collectible === 0 ? 1 : 0);
         setCollectible(collectible === 0 ? 1 : 0);
     };
 
@@ -85,7 +86,7 @@ export default function Content() {
     return (
         <div className="row">
             <div className="col-12">
-                <p>Page {currentPage}/{Math.ceil(items.length/itemPerPage)} ({items.length} {localStorage.getItem('currentSubCategory').replace('%2520',' ')} card{items.length >= 2 && 's'})</p>
+                <p>Page {currentPage}/{Math.ceil(items.length/itemPerPage)} ({items.length} {localStorage.getItem('currentSubCategory').replace(/%2520/gi,' ')} card{items.length >= 2 && 's'})</p>
             </div>
             <div className="col-lg-3 col-md-3 col-sm-12 mb-3 filterbar">
                 <FilterBar filterByThisItem={filterByThisItem} filterByCollectible={filterByCollectible} collectible={collectible} />
