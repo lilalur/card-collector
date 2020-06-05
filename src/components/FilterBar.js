@@ -6,31 +6,30 @@ export const FilterBar = ( {filterByThisItem, filterByCollectible, collectible} 
     const [selected, setSelected] = useState([]);
 
     useEffect(() => {
-        const fetchFiltersCollection = async () => {
-            setLoading(true);
-            const response = await fetch("https://omgvamp-hearthstone-v1.p.rapidapi.com/info", {
-                "method": "GET",
-                "headers": {
-                    "x-rapidapi-host": "omgvamp-hearthstone-v1.p.rapidapi.com",
-                    "x-rapidapi-key": "4f6f8870c0mshe2cdfbd2d8bb945p1ceacfjsn94ca2e3b42a3"
-                }
-            }).catch(err => { console.error(err); });
-            const filtersCollection = await response.json();
-            setFiltersCollection(filtersCollection);
-            setLoading(false);
-
-            // make an array with the exact number of each item will get listed as filter and set an array for them as false (closed)
-            Object.keys(filtersCollection).map(() => selected.push(false));
-        };
         fetchFiltersCollection();
     }, []);
 
-    let filterCategoryTriggered = (i) => {
-        return () => {
-            let newFilterArr = [...selected];
-            newFilterArr[i] = !selected[i];
-            setSelected(newFilterArr);
-        };
+    const fetchFiltersCollection = async () => {
+        setLoading(true);
+        const response = await fetch("https://omgvamp-hearthstone-v1.p.rapidapi.com/info", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-host": "omgvamp-hearthstone-v1.p.rapidapi.com",
+                "x-rapidapi-key": "4f6f8870c0mshe2cdfbd2d8bb945p1ceacfjsn94ca2e3b42a3"
+            }
+        }).catch(err => { console.error(err); });
+        const filtersCollection = await response.json();
+        setFiltersCollection(filtersCollection);
+        setLoading(false);
+        // make an array with the exact number of each item will get listed as filter and set an array for them as false (closed)
+    };
+
+    Object.keys(filtersCollection).map(() => selected.push(false));
+
+    let filterCategoryTriggered = i => () => {
+        let newFilterArr = [...selected];
+        newFilterArr[i] = !selected[i];
+        setSelected(newFilterArr);
     };
 
     //console.log(localStorage.getItem('currentCategory'))
@@ -43,7 +42,7 @@ export const FilterBar = ( {filterByThisItem, filterByCollectible, collectible} 
             <p>Filter by {localStorage.getItem('currentCategory')}</p>
             {/* Set the slice for 1 to cut out the patch note from the filter list and set for -1 to cut out the locales as that not part of this filtering */}
             {(Object.keys(filtersCollection).slice(1,-1).map((item, i) => 
-                <div key={i+"filtercategory"} className={localStorage.getItem('currentCategory').toLowerCase() === item.toLowerCase() && "bg-dark text-white"}>
+                <div key={i+"filtercategory"} className={localStorage.getItem('currentCategory').toLowerCase() === item.toLowerCase() ? "bg-dark text-white" : "text-secondary"}>
                     <h5 className={`p-3 filter-header ${selected[i] ? "selected" : ""}`} onClick={filterCategoryTriggered(i)}>{item}
                         <span className={`${selected[i] ? "js-indicator-arrowup" : "js-indicator-arrowdown"}`}>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#333" width="24px" height="24px">
@@ -54,7 +53,7 @@ export const FilterBar = ( {filterByThisItem, filterByCollectible, collectible} 
                     <ul className={`list-group ${selected[i] ? "selected" : ""}`}>
                       {/* Creating and listing all the subcategory as a list under each category */}
                         {Object.values(filtersCollection).slice(1)[i].map((listItem, n) => 
-                            <li className={`list-group-item ${localStorage.getItem('currentSubCategory').replace(/%2520/gi,' ') === listItem ? "bg-dark text-white" : "text-dark" }`} key={i+n+"filteritem"} onClick={filterByThisItem}>{listItem}</li>
+                            <li className={`list-group-item ${localStorage.getItem('currentSubCategory').replace(/%2520/gi,' ') === listItem ? "bg-dark text-white" : "text-secondary" }`} key={i+n+"filteritem"} onClick={filterByThisItem}>{listItem}</li>
                         )}
                     </ul>
                 </div>

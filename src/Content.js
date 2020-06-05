@@ -18,12 +18,13 @@ export default function Content() {
     const [itemPerPage] = useState(12);
 
     const [filter, setFilter] = useState([localStorage.getItem('currentCategory') === null ? 'sets' : localStorage.getItem('currentCategory'),localStorage.getItem('currentSubCategory') === null ? 'Classic' : localStorage.getItem('currentSubCategory')]);
-    const [locale, setLocale] = useState('enGB');
+    const [locale, setLocale] = useState('');
     const [collectible, setCollectible] = useState(1);
 
     useEffect(() => {
         const fetchItems = async () => {
             setLoading(true);
+            setLocale('enGB');
             const data = await fetch(`https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/${filter[0]}/${filter[1]}?locale=${locale}&collectible=${collectible}`, {
                     "method": "GET",
                     "headers": {
